@@ -4,10 +4,9 @@ CTCI 1.1 : Implement an algorithm to determine if a string has all unique charac
 	// Assumption : Input String s is limited to ascii set chars.
         // Time Complexity : O(n)
         // Space Complexity : Size of int * 256
-        // Returns true for input str "abcHJK", false for "aaBBcc"
-        // Note this implementation does not handle character case. Example returns true for this input string "AaBbCc"
+        // Returns true for input str "abcABC", false for "aaBBcc"
         
-	public static bool CheckStrHasAllUniqueChars(string s)
+	public static bool CheckStrHasAllUniqueCharsVer1(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -24,5 +23,38 @@ CTCI 1.1 : Implement an algorithm to determine if a string has all unique charac
                 }
             }
             return true;
-
         }
+        
+        
+        // What if you cannot use additional data structures
+        // Time Complexity : O(n^2)
+        // Space Complexity : O(1) that is memory used by the algorithm does not depend on the size of the input instance
+        public static bool CheckStrHasAlluniqueCharsVer2(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                throw new ApplicationException("Invalid Input");
+            }
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                for(int j = 0; j < s.Length ; j++)
+                {
+                    // Restart j with 0 index so that chars before i are also checked
+                    // but do not count the same index position as duplicate
+
+                    if( j == i)
+                    {
+                        continue;
+                    }
+
+                    if (s[j] == s[i])
+                    {
+                        // duplicate char found
+                        return false; 
+                    }
+                }                
+            }
+            return true;
+        }
+        
