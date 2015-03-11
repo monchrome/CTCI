@@ -1,0 +1,27 @@
+// Write a method to decide if two strings are anagrams or not
+// Time Complexity : O(n^2)
+// Space Complexity :  size of int * 256
+public static bool IsAnagram(string str1, string str2)
+{
+    if( str1.Length != str2.Length)
+    {
+       return false;
+    }
+    
+    int [] arr = new int[256];
+    
+    for(int i = 0 ; i < str1.Length ; i++ )
+    {
+       arr[str1[i]] += 1;
+       arr[str2[i]] -= 1;
+    }
+    
+    for(int i = 0 ; i < str2.Length ; i++)
+    {
+      if( arr[str2[i]] != 0 )
+      {
+        return false;
+      }
+    }
+    return true;
+}
