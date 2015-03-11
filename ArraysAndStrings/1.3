@@ -1,0 +1,61 @@
+// Design an algorithm and write code to remove the duplicate chars in a string without using any additional buffer NOTE: One or two additional variables are fine. An extra copy of the array is not.
+
+// Time complexity : O(n^2) 
+// Space complexity : O(1) . intial input string size is not reduced. Does not use an additional array
+// Drawback of below code is that the duplicate chars are just replaced by a space char, and the length of the char array is not actually reduced
+// Good point is that the below code does remove multiple instances of duplicates.For eg. aaabbcc is reduced to a  b c
+public static void RemoveDuplicateChars(char[] arr)
+{
+   if(str.Length <= 1)
+   {
+     throw new ApplicationException("Invalid Input");
+   }
+   
+      for( int i = 0; i < arr.Length; i++)
+   {
+     for (j = 0; j < arr.Length ; j++)
+     {
+        if( i == j)
+        {
+          continue;
+        }
+        if (arr[j] == arr[i])
+        {
+          if (j>i)
+          {
+             arr[j] = ' ';
+          }
+          else
+          {
+            arr[i] = ' ';
+          }
+        }
+      }
+    }
+}
+
+
+// Modified question : Check if a string has duplicate chars. Additional storage is okay
+// Time Complexity : O(n)
+// Space Complexity : size of int * 256
+public static bool HasDuplicates(char[] str)
+{
+ if(str.Length <= 1 )
+ {
+   return false;
+ }
+ 
+ int[] arr = new int[256];
+ 
+ for(int i = 0; i< str.Length ; i++)
+ {
+   arr[str[i]] += 1;
+   if(arr[str[i]] >1 )
+   {
+      return true;
+   }
+ }
+ return false;
+ }
+ 
+ 
