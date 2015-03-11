@@ -34,7 +34,7 @@ void ReverseString(char* str)
     return;
    }
    
-   for(char* p = str + strlen(str) +1,char* s = str ; s < p ; p--, s++)
+   for(char* p = str + strlen(str) - 1,char* s = str ; s < p ; p--, s++)
    {
       (*s) ^= (*p);
       (*p) ^= (*s);
@@ -47,7 +47,8 @@ void ReverseString(char* str)
 // Method 3 : C# implementation using temp variable 
 // Time Complexity : O(n), since string is traversed just once.n here is # of chars in the string
 // Space Complexity : O(1) ,since code does in place replacement. Additional memory used by temp variable.
-// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,hence in place replacement of chars  of a C# string is not possible
+// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,
+//hence in place replacement of chars of a C# string is not possible
 public static void ReverseString(char[] str)
 {
   if (str.Length == 0)
@@ -67,7 +68,7 @@ public static void ReverseString(char[] str)
 // Method 4 : C# implementation using XoR operator
 // Time Complexity : O(n) , since string is traversed just once.
 // Space Complexity : O(1) , since code does in place replacement and additional memory usage is very low
-// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,hence in place replacement of chars  of a C# string is not possible
+// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,hence in place replacement of chars of a C# string is not possible
 public static void ReverseString(char[] str)
 {
   if(str.Length == 0)
@@ -75,7 +76,7 @@ public static void ReverseString(char[] str)
     throw new ApplicationException("Invalid input");
   }
   
-  for(int i = 0; j=str.Length; i<j ; i++, j--)
+  for(int i = 0; j=str.Length -1; i<j ; i++, j--)
   {
      str[i] ^= str[j];
      str[j] ^= str[i];
