@@ -1,0 +1,40 @@
+// Write a method to replace all spaces in a string with '%20'
+// Time Complexity : O(n^2) 
+// Space Complexity : # of spaces *3
+public static void ReplaceSpaces(string str)
+{
+  if (string.IsNullOrEmpty(str))
+  {
+    throw new ApplicationException("Invalid Input");
+  }
+  
+  int spacecnt = 0;
+  
+  for(int i = 0 ; i < str.Length ; i++ )
+  {
+    if(str[i] == ' ')
+    {
+     spacecnt++;
+    }
+  }
+  
+  // Allocate extra space required
+  char[] arr = new char[str.Length + spacecnt * 3];
+  
+  for ( int i = 0, j =0; i < str.Length ; i++)
+  {
+     if(str[i] == ' ')
+     {
+        arr[j++] = '%';
+        arr[j++] = '2';
+        arr[j++] = '0';
+     }
+     else
+     {
+        arr[j++] = str[i];
+     }
+  }
+    
+  Console.WriteLine(arr);
+}
+
