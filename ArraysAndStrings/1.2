@@ -1,0 +1,90 @@
+// CTCI 1.2 : Write code to reverse a C-style string 
+
+
+// Method 1: C implementation using pointers and temp variable
+// Time Complexity : O(n^2), since the input string is traversed twice, once to calculate length and then to do actual replacement. n here is # of chars in the string
+// Space Complexity : O(1) ,since code does in place replacement of chars and additional memory used by pointers and temp variable
+void ReverseString(char* str)
+{
+  if (*str == null)
+  { 
+    printf("Invalid Input");
+     return;
+  }
+  
+  for ( char* p = str ; *p != '\0'; p++);
+  
+  for ( char* s = str, p--; s < p; s++,p--)
+  {
+    char t = *p;
+    *p = *s;
+    *s = t;
+  }
+  printf("Reversed string %s",str);
+}
+
+//Method 2: C implementation using pointers and XoR. Most optimized since space used is very little
+// Time Complexity : O(n), since input string is traversed only once,n here is # of chars in the string.
+// Space complexity : O(1), since in place replacement and very little memory overhead since no temp variable is used
+void ReverseString(char* str)
+{
+   if(*str == null)
+   {
+    printf("Invalid input");
+    return;
+   }
+   
+   for(char* p = str + strlen(str) +1,char* s = str ; s < p ; p--, s++)
+   {
+      (*s) ^= (*p);
+      (*p) ^= (*s);
+      (*s) ^= (*p);
+   }
+   
+   printf("Reversed string : %s", str);
+}
+
+// Method 3 : C# implementation using temp variable 
+// Time Complexity : O(n), since string is traversed just once.n here is # of chars in the string
+// Space Complexity : O(1) ,since code does in place replacement. Additional memory used by temp variable.
+// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,hence in place replacement of chars  of a C# string is not possible
+public static void ReverseString(char[] str)
+{
+  if (str.Length == 0)
+  {
+     throw new ApplicationException("Invalid input");
+  }
+  char t = default(char);
+  for(int i = 0, j = str.Length - 1; i < j ; i++ , j--)
+  {
+     t = str[j];
+     str[j] = str[i];
+     str[i] = t;
+  }
+  Console.WriteLine(str);
+}
+
+// Method 4 : C# implementation using XoR operator
+// Time Complexity : O(n) , since string is traversed just once.
+// Space Complexity : O(1) , since code does in place replacement and additional memory usage is very low
+// Note that below implementation takes  char[] instead of string. This is because in C# strings are immutable,hence in place replacement of chars  of a C# string is not possible
+public static void ReverseString(char[] str)
+{
+  if(str.Length == 0)
+  {
+    throw new ApplicationException("Invalid input");
+  }
+  
+  for(int i = 0; j=str.Length; i<j ; i++, j--)
+  {
+     str[i] ^= str[j];
+     str[j] ^= str[i];
+     str[i] ^= str[j];
+  }
+  
+  Console.WriteLine(str);
+}
+
+
+
+
