@@ -1,0 +1,46 @@
+// 1.7 Write an algorithm such that if an element in an M*N matrix is 0, it's entire row and column is set to 0
+// Time Complexity : O(m * n)
+// Space Complexity : O(m) + O(n)
+ public static void SetMatrixElementstoZero(ref int[,] matrix, int rowmax, int colmax)
+{
+            if( matrix.Length == 0 || rowmax==0 || colmax==0)
+            {
+                throw new ApplicationException("Invalid input");
+            }
+
+            int[] targetrows = new int[rowmax];
+            int[] targetcols = new int[colmax];
+            int cnt = 0;
+            
+            // first loop to detect which cells in the matrix contains zeroes
+            for ( int row = 0 ; row < rowmax ; row++)
+            {
+                for ( int col = 0 ; col < colmax ; col++)
+                {
+                    if(matrix[row,col] == 0)
+                    {
+                        targetrows[cnt] = row;
+                        targetcols[cnt] = col;
+                        cnt++;
+                    }
+                }
+            }
+            
+            // loops to set zeroes . need to edit this piece to optimize this more
+            int arrrow = 0;
+            int arrcol = 0;
+            foreach( int r in targetrows)
+            {
+                while (arrcol < colmax)
+                {
+                    matrix[r, arrcol++] = 0;
+                }
+            }
+            foreach ( int c in targetcols)
+            {
+                while( arrrow < rowmax)
+                {
+                    matrix[arrrow++,c] = 0;                 
+                }
+            }
+  }
