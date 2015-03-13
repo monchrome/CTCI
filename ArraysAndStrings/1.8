@@ -1,6 +1,7 @@
 // 1.8 Assume you have a method isSubstring which if a word is a substring of another. Given two strings,s1 and s2,
 //write code to check if s2 is rotation of s1, using only one call to isSubstring. (i.e. waterbotle is a rotation of erbottlewat
-
+// Time Complexity : depends on isSubstring implementation
+// Space Complexity : s1.length * 2;
 public static bool IsRotation(string s1 ,string s2)
 {
   if (s1.Length != s2.Length)
@@ -8,6 +9,6 @@ public static bool IsRotation(string s1 ,string s2)
    return false;
   }
   string s1concat = s1 + s1;
-  return s1concat.Contains(s2);
+  return isSubstring(s1concat,s2);     // in c# : s1concat.Contains(s2); 
 }
  
