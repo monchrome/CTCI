@@ -1,0 +1,59 @@
+// 2.1 : Write code to remove duplicates from an unsorted linked list
+// FOLLOW UP
+// How would you solve this problem if a temporary buffer is not allowed
+
+// Method 1 : using a temporary buffer to store unique nodes
+// Time Complexity : O(n), where n is the number of nodes
+// Space Complexity : worst case O(n) if no duplicates exists
+public static void RemoveDupesFromUnsortedLinkList(ref LinkedList<int> L )
+{
+    if( (L == null) || (L.Head==null))
+    {
+        throw new ApplicationException("Null or empty link list");
+    }
+
+    Hashtable uniqueList = new Hashtable();
+    Node<int> Cur = default(Node<int>);
+    Node<int> Prev = L.Head;
+
+    for( Cur = L.Head ; Cur.Next != null ; Cur = Cur.Next)
+    {
+        if(uniqueList.ContainsKey(Cur.Data))
+        {
+            // duplicate found
+            Prev.Next = Cur.Next;                    
+        }
+        else
+        {
+            uniqueList.Add(Cur.Data, 1);
+            Prev = Cur;
+        }
+    }
+}
+
+// Method 2 : Without using a buffer
+// Time Complexity : O(n * n-1) in worst case
+// Space Complexity : O(1) since no extra buffer is used
+public static void RemoveDupesfrmLLNoBuffer(ref LinkedList<int> L)
+{
+     if (( L == null) || (L.Head == null))
+     {
+         throw new ApplicationException("Null or empty link list");
+     }
+    
+    for(Node<int> Cur = L.Head ; Cur.Next != null ; Cur=Cur.Next)
+    {
+        for (Node<int> Nodem = Cur.Next, Prev = Cur; Nodem.Next != null;  Nodem = Nodem.Next)
+        {
+            if (Nodem.Data == Cur.Data)
+            {
+                // Dupe found, remove node
+                Prev.Next = Nodem.Next;
+            }
+            else
+            {
+                Prev = Nodem;
+            }
+        }
+    }             
+}
