@@ -1,0 +1,39 @@
+// Implement an algorithm to delete a node in the middle of the link list, given only access to that node
+
+public static void DeleteNode(Node<int> deletethisNode)
+{
+    if (deletethisNode == null)
+    {
+        return;
+    }
+
+    // Copy the  contents of next node (next to one to be deleted) into new node
+    // Node this method does not work for last node in the list
+    Node<int> newNode = deletethisNode;
+    newNode.Data = deletethisNode.Next.Data;
+    newNode.Next = deletethisNode.Next.Next;
+    deletethisNode = null;
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+      Node<int> node1 = new Node<int>(1, null);
+      Node<int> node2 = new Node<int>(2, null);
+      Node<int> node3 = new Node<int>(3, null);
+      Node<int> node4 = new Node<int>(4, null);
+      node1.Next = node2;
+      node2.Next = node3;
+      node3.Next = node4;
+
+      LinkedList<int> R = new LinkedList<int>(node1);
+      Console.WriteLine("before deletion");
+      R.PrintNodes();
+      // output is : 1->2->3->4
+      DeleteNode(node2);
+      Console.WriteLine("after deletion");
+      R.PrintNodes();
+      // output is : 1->3->4
+    }
+}
