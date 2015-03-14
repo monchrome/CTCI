@@ -65,11 +65,13 @@
             if (this.head != null)
             {
                 Node<T> Cur = default(Node<T>);
+                Console.Writeline();
                 for (Cur = this.head; Cur.Next != null; Cur = Cur.Next)
                 {
-                    Console.WriteLine(Cur.Data.ToString());
+                    Console.Write(Cur.Data.ToString());
+                    Console.Write("->");
                 }
-                Console.WriteLine(Cur.Data.ToString());
+                Console.Write(Cur.Data.ToString());
             }
         }
     
