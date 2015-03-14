@@ -1,0 +1,43 @@
+//2.2 Implement an algorithm to find nth to last element of a single linked list
+
+// 2.2 Implement algorithm to return nth to last element of a singly linked list.
+// Read this problem as nth node from last
+// So in this sample link list :2->4->5->3->7->6->1, 3rd node from last is 7.
+// Time Complexity : O(n), where n is number of nodes in the list
+// Space Complexity : O(1) 
+
+public static Node<int> GetNthNodeFromLast(ref LinkedList<int> L, int n)
+{
+    if ((L == null) || (L.Head == null))
+    {
+        // return a null node
+        return default(Node<int>);
+    }
+
+    // Use two pointers starting at the list's head
+
+    Node<int> cur1 ,cur2;
+    cur1 = cur2 = L.Head;
+
+    // Forward the second pointer until n-1th node
+    for ( int i = 0 ; i < n -1 ; i++ )
+    {
+        if(cur2.Next == null)
+        {
+            // if second pointer hits end of list before n-1th node is reached 
+            // then value of n is more than the number of nodes in the list.
+            // hence return null;
+            return default(Node<int>);
+        }
+        cur2 = cur2.Next;
+    }
+
+    // At this point cur1 is at the head. Now advance both pointers.
+    // By the time cur2 reaches end of list, cur1 will reach to nth node
+    while ( cur2.Next != null)
+    {
+        cur1 = cur1.Next;
+        cur2 = cur2.Next;
+    }
+    return cur1;
+}
