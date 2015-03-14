@@ -57,3 +57,30 @@ public static void RemoveDupesfrmLLNoBuffer(ref LinkedList<int> L)
         }
     }             
 }
+
+
+// main module
+class Program
+{
+    static void Main(string[] args)
+    {
+        LinkedList<int> L = new LinkedList<int>();
+        int[] arr= new int[]{1,1,2,3,1,5,2,2,4,10,5,9,4,4,6};
+        InitializeList(ref L,arr);
+    }
+    
+    // Helper code to help populate link list in your main / consumer classes
+    public static void InitializeList(ref LinkedList<int> L , int[] arr)
+    {
+        if(L == null) 
+        {
+            return;
+        }
+        
+        foreach( int i in arr)
+        {
+            Node<int> n = new Node<int>(i, null);
+            L.InsertNodeAtTail(n);
+        }
+    }
+}
