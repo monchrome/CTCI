@@ -1,0 +1,76 @@
+// Node class implementation
+
+    public class Node<T>
+    {
+        private T data;
+        Node<T> next;
+
+        public Node(T item, Node<T> n)
+        {
+            this.data = item;
+            this.next = n;
+        }
+
+        public Node<T> Next
+        {
+            get { return this.next; }
+            set { this.next = value; }
+        }
+
+        public T Data
+        {
+            get { return this.data; }
+            set { this.data = value; }
+        }
+    }
+    
+    
+// Linked List class implementation
+    public class LinkedList<T>
+    {
+        private Node<T> head;
+
+        public LinkedList(Node<T> n = null)
+        {
+            if (this.head == null)
+            {
+                this.head = n;
+            }
+        }
+
+        public Node<T> Head
+        {
+            get { return this.head; }
+        } 
+      
+        public void InsertNodeAtTail(Node<T> n)
+        {
+            if(this.head == null)
+            {
+                this.head = n;
+            }
+            else
+            {
+                Node<T> Cur = this.head;
+                while(Cur.Next != null)
+                {
+                    Cur = Cur.Next;
+                }
+                Cur.Next = n;
+            }
+        }
+
+        public void PrintNodes()
+        {
+            if (this.head != null)
+            {
+                Node<T> Cur = default(Node<T>);
+                for (Cur = this.head; Cur.Next != null; Cur = Cur.Next)
+                {
+                    Console.WriteLine(Cur.Data.ToString());
+                }
+                Console.WriteLine(Cur.Data.ToString());
+            }
+        }
+    
+    }   
