@@ -1,0 +1,103 @@
+// 1.5 Implement a method to perform basic string compression using the counts of repeated characters. For example, the 
+// string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not become smaller than the original string, your // method should return the original string. You can assume the string has only upper and lower case letters (a-z).
+
+ public static string RLECompression(string inputstr)
+  {
+      if(string.IsNullOrEmpty(inputstr))
+      {
+          throw new ApplicationException("Invalid input");
+      }
+
+      // Note for rle compression to reduce length, input string must be longer than 2 chars
+      if(inputstr.Length==2)
+      {
+          return inputstr;
+      }
+
+      StringBuilder rlestr = new StringBuilder();
+      int cnt = 1;
+      // note start with index 1
+      for(int i = 1 ; i < inputstr.Length ; i++)
+      {
+          if(inputstr[i] == inputstr[i-1])
+          {
+              cnt++;
+          }
+          else
+          {
+              // Add the char and it's count to rlestr
+              rlestr.Append(inputstr[i-1]);
+              rlestr.Append(cnt.ToString());
+              // Reset cnt
+              cnt = 1 ;
+          }
+
+          // Add last char and it's count before string is terminated
+          if( i + 1 == inputstr.Length)
+          {
+              rlestr.Append(inputstr[i]);
+              rlestr.Append(cnt.ToString());                 
+          }
+      }
+
+      // Return original string if rle does not reduce original string size
+      if( rlestr.Length == inputstr.Length)
+      {
+          return inputstr;
+      }
+      else
+      {
+          return rlestr.ToString();
+      }
+}
+
+// Variation : Implement run-length encoding and decoding functions. Assume the string to be encoded consists of letters of the alphabet, with no digits, and the string to be decoded is a valid encoding.
+// For encoding, see above method
+public static string DecodeRLEString(string str)
+{
+  if (string.IsNullOrEmpty(str)
+  {
+    throw new ApplicationException("Invalid input");
+  }
+  
+  StringBuilder decodedstr = new StringBuilder();
+  int cnt = default(int);
+  char repeatchar = str[0];
+  for(int i = 0 ; i < str.Length ; i++ )
+  {
+    if(IsDigit(str[i]) 
+    {
+       cnt = cnt * 10 + str[i] - '0';
+    }
+    else
+    {
+      do
+      {
+         decodedstr.Append(repeatchar);
+      }while(--cnt > 0);
+      repeatchar = str[i];
+    }
+    
+    // Add last char before string is terminated
+    if( i+1 == str.Length)
+    {
+      do
+      {
+        decodedstr.Append(repeatchar);
+      }while(--cnt > 0);
+    }
+  }
+  return decodedstr.ToString();
+}
+
+public static bool IsDigit(char c)
+{
+  if( ( c >= '0' ) && ( c <= '9' ) )
+  {
+    return true;
+  }
+  return false;
+}
+
+
+
