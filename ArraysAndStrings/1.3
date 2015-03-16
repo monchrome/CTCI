@@ -1,0 +1,131 @@
+// 1.3 Given two strings,write a method to decide if one is permutation of the other
+// Anoher variation of the question : Write a method to decide if two strings are anagrams or not
+// Note anagrams are permutations of characters in a string
+// e.g. "torch wood", "doctor who"
+// e.g. "george bush ","he bugs gore"
+// Method 1 : Taking counts of each char. Note below implementation is limited to ascii set
+// Time Complexity : O(n^2)
+// Space Complexity :  size of int * 256
+public static bool IsAnagram(string str1, string str2)
+{
+    if(string.IsNullOrEmpty(str1) || string.IsNullOrEmpty(str2))
+    {
+      return false;
+    }
+   
+    if( str1.Length != str2.Length)
+    {
+       return false;
+    }
+    
+    int [] arr = new int[256];
+    
+    for(int i = 0 ; i < str1.Length ; i++ )
+    {
+      // Note str1[i] may be same or different char from str2[i] 
+      // but eventually if the strings are anagrams, count should get reset to 0
+      // for all chars encountered
+       arr[str1[i]] += 1;
+       arr[str2[i]] -= 1;
+    }
+    
+    for(int i = 0 ; i < str2.Length ; i++)
+    {
+      if( arr[str2[i]] != 0 )
+      {
+        return false;
+      }
+    }
+    return true;
+}
+
+// Method 2 : Optimized to remove limitation of ascii set in method 1
+// Time Complexity : worst case O(n^3) if all of n are unique characters
+// Space Complexity : space occupied by each dictionary entry <char,int> * n , if all n are unique chars
+public static bool ArePermutations(string str1, string str2)
+{
+    if(string.IsNullOrEmpty(str1) && string.IsNullOrEmpty(str2))
+    {
+        return true;
+    }
+    
+    if( string.IsNullOrEmpty(str1) || string.IsNullOrEmpty(str2) )
+    {
+        return false;
+    }
+    
+    if( str1.Length != str2.Length )
+    {
+        return false;
+    }
+    
+    // Using Dictionary to avoid boxing unboxing required with hashtable
+    // each char in the string is the key and it's count the value
+    Dictionary<char,int> charcnttable = new Dictionary<char,int>();
+    
+    // Traverse through first string to count chars
+    for( int i = 0; i < str1.Length ; i++ )
+    {
+        if(!charcnttable.ContainsKey(str1[i]))
+        {
+            charcnttable.Add(str1[i], 1);
+        }
+        else 
+        {
+            charcnttable[str1[i]]++;
+        }
+    }
+
+    for ( int i = 0 ; i < str2.Length ; i++)
+    {
+        if(!charcnttable.ContainsKey(str2[i]))
+        {
+            return false;
+        }
+        else
+        {
+            charcnttable[str2[i]]--;
+        }
+    }
+    
+    // After execution of above for loop , there may be key's in hashtable whose 
+    // values are not reduced to zero which indicate that input strings are not permutations/anagrams of each other
+    // Hence need to loop through hashtable and verify all values. 
+    foreach(KeyValuePair<char,int> keypair in charcnttable)
+    {
+        if(keypair.Value != 0 )
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+// Method 3 : Use this if interviewer allows to use library methods
+//Time Complexity : Same as List.Sort implementation
+//Space Complexity : size of input strings * 2 
+public static bool AreStringsPermutations(string str1, string str2)
+{
+    if(string.IsNullOrEmpty(str1) && string.IsNullOrEmpty(str2))
+    {
+        return true;
+    }
+
+    if( string.IsNullOrEmpty(str1) || string.IsNullOrEmpty(str2) )
+    {
+        return false;
+    }
+
+    if( str1.Length != str2.Length )
+    {
+        return false;
+    }
+
+    List<char> list1 = str1.ToList();
+    List<char> list2 = str2.ToList();
+    list1.Sort();
+    list2.Sort();
+
+    return  System.Linq.Enumerable.SequenceEqual(list1, list2);
+}
