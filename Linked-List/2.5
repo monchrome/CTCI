@@ -1,0 +1,142 @@
+// You have two numbers represented by a linked list, where each node contains a single digit. The digits are
+// stored in reverse order, such that the 1's digit is at the head of the list. Write a function that adds the two numbers
+// and returns the sum as a linked list
+// Time Complexity : O(n1 + n2), where n1 and n2 are number of nodes in List L1 and L2
+// Space Complexity : O(1) + mandatory space required for resultant list
+public static LinkedList<int> AddNumbersinLists(LinkedList<int> L1 , LinkedList<int> L2)
+{
+  // if either list is null, it's as good as addiing 0 to a number, so return the non-null list.
+  // if both l1 and l2 are null, return null 
+  if (L1 == null || L1.Head == null)
+  {
+      return L2;
+  }
+
+  if (L2 == null || L2.Head == null)
+  {
+      return L1;
+  }
+
+  LinkedList<int> RList = new LinkedList<int>();
+  int l1int, l2int, carry, value, result;
+  l1int = l2int = carry = value = result = 0;
+  Node<int> L1Ptr = L1.Head;
+  Node<int> L2Ptr = L2.Head;
+  while(0<1)
+  {
+      // sinceloop condition will be true infinitely, define break condition first
+      // break when list ptrs for both lists have reached the tail node
+      if ((L1Ptr == null) && (L2Ptr == null))
+      {
+          break;
+      }
+
+      // if either of the list is shorter than the oher
+      // then node data is to be considered 0
+      if (L1Ptr == null)
+      {
+          l1int = 0;
+      }
+      else
+      {
+          l1int = L1Ptr.Data;
+      }
+
+      if (L2Ptr == null)
+      {
+          l2int = 0;
+      }
+      else
+      {
+          l2int = L2Ptr.Data;
+      }
+
+      value = l1int + l2int + carry;
+      result = value % 10;
+      carry = value >= 10 ? 1 : 0;
+
+      // Add result as new node to result list
+      Node<int> newNode = new Node<int>(result, null);
+      RList.InsertNodeAtTail(newNode);
+
+      //Advance only if list has more nodes to add
+      if(L1Ptr!=null)
+      {
+          L1Ptr = L1Ptr.Next;
+      }
+      if(L2Ptr!=null)
+      {
+          L2Ptr = L2Ptr.Next;
+      }
+  }
+
+  // Add the last carry as an extra node
+  if (carry != 0)
+  {
+      Node<int> newNode = new Node<int>(carry, null);
+      RList.InsertNodeAtTail(newNode);
+  }
+
+  RList.PrintNodes();
+  return RList;
+}
+
+
+// Suppose the digits are stored in forward order. Repeat the above problem
+// Time Complexity : O(n1 + n2), where n1 and n2 are number of nodes in List L1 and L2
+// Space Complexity : O(1) + mandatory space required for resultant list
+public static LinkedList<int>  AddNumbersinFwdOrderList(LinkedList<int> L1, LinkedList<int> L2)
+{
+   if (L1 == null || L1.Head == null)
+   {
+     return L2;
+   }
+   
+   if (L2 == null || L2.Head == null)
+   {
+     return L1;
+   }
+   
+   int l1int,l2int, result;
+   l1int = l2int = result = 0;
+   LinkedList<int> RList = new LinkedList<int>();
+   Node<int> L1Ptr, L2Ptr;
+   
+   // Traverse the list and convert every node content to integer
+   // Same logic as converting a string of numbers to an int
+   
+   for( L1Ptr = L1.Head ; L1Ptr != null ; L1Ptr = L1ptr.Next)
+   {
+      l1int = l1int * 10 + L1Ptr.Data;
+   }
+   
+   for (L2Ptr = L2.Head; L2Ptr != null ; L2Ptr = L2Ptr.Next)
+   {
+      l2int = l2int * 10 + L2Ptr.Data;
+   }
+   
+   // Add l1int and l2int to get the result
+   result = l1int + l2int;
+   
+   // Now store this integer result into a link list
+   // so that each node contains a single digit
+   // use same logic as converting an int to a string of numbers
+   int quo, rem;
+   quo = rem = 0;
+   while( result > 1)
+   {
+      rem  = result % 10;
+      quo = result / 10;
+      Node<int> newNode = new Node<int>(rem,null);
+      RList.InsertNodeAtStart(newNode);
+      result = quo;
+    }
+    
+   // Note the last quotient needs to be added to the result list
+   if( Quo != 0)
+   {
+    Node<int> new Node<int> 
+   
+   //RList.PrintNodes();
+   return RList;
+}
