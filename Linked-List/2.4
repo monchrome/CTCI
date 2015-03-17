@@ -1,0 +1,52 @@
+// Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes 
+// greater than or equal to x
+
+// Method 1 : Optimize space used .Note no new link list is created. If
+// a node is added another node is deleted, keeping effective space used same 
+// Time Complexity : O(n^2)
+// Space Complexity : O(1)
+public static void PartitionList(ref LinkedList<int> L, int x)
+{
+    if ((L == null) || (L.Head == null))
+    {
+        throw new ApplicationException("Invalid Input");
+    }
+    // if list contains only 1 node return
+    if( L.Head.Next == null)
+    {
+      return; 
+    }
+    Node<int> Curr , Next;
+    Curr = Next = L.Head;
+    int movecnt = 0;
+    for (; Curr != null; Curr=Curr.Next )
+    {
+        movecnt++;
+    }
+    
+    Curr = L.Head;
+    do
+    {
+        Next = Curr.Next;
+        Node<int> newNode = new Node<int>(Curr.Data, null);
+
+        // Less than x , move to head 
+        if (Curr.Data < x)
+        {
+            L.DeleteNode(Curr);
+            L.InsertNodeAtStart(newNode);
+        }
+        // Greater than x, move to tail
+        else if (Curr.Data > x)
+        {
+            L.DeleteNode(Curr);
+            L.InsertNodeAtTail(newNode);
+        }
+        // Note if a node value is same as x , it is not moved, yet movecnt is decremented 
+        // to indicate that node was processed by doing no move action
+        Curr = Next;
+        movecnt--;
+        // A node needs to be moved only once
+        // so if movecnt is 0 , all moves are done
+     } while ( (movecnt > 0) && (Curr != null) );
+}
