@@ -43,14 +43,22 @@
             get { return this.head; }
         } 
       
+        // Inserts node at end of the list
         public void InsertNodeAtTail(Node<T> n)
         {
+            if ( n == null)
+            {
+                return;
+            }
+            
+            // List is empty
             if(this.head == null)
             {
                 this.head = n;
             }
             else
             {
+                // traverse to list end and attach node
                 Node<T> Cur = this.head;
                 while(Cur.Next != null)
                 {
@@ -58,6 +66,59 @@
                 }
                 Cur.Next = n;
             }
+        }
+        
+        // Inserts node at start of the list
+        public void InsertNodeAtStart(Node<T> n)
+        {
+           if(n == null)
+           {
+            return;
+           }
+           
+           // List is empty
+           if(this.head == null)
+           {
+             this.head = n ;
+           }
+           else
+           {
+             // reset head
+             n.Next = this.head;
+             this.head = n ;
+           }
+         }
+         
+         // Delete Node from list
+         public void DeleteNode(Node<T> n)
+         {
+            if(n == null)
+            {
+              return;
+            }
+            
+            Node<T> Prev , Cur ;
+            Prev = Cur = this.head;
+            do
+            {
+                // Case 1 : Node to be deleted is head node
+                 if( n.Data == this.head )
+                 {
+                   this.head = Cur.Next;
+                   return;
+                 }
+                 // Case 2 : Node to be deleted is a middle/tail node
+                 if ( n.Data == Cur.Data)
+                 {
+                   prev.Next = Cur.Next;
+                   break;
+                 }
+                 else
+                 {
+                   Prev = Cur;
+                   Cur = Cur.Next;
+                 }
+            }while(Cur!=null);
         }
 
         public void PrintNodes()
