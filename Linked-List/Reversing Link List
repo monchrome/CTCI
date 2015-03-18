@@ -1,6 +1,6 @@
 // Method 1 : Iterative Method
 // Time Complexity : O(n)
-// Space Complexity : O(1), space for new reversed linkedlist is not taken into account since that is the result to be produced
+// Space Complexity : O(1)
 public static LinkedList<int> ReverseListIteratively(LinkedList L)
 {
     if ( L == null || L.Head == null)
