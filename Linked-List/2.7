@@ -1,5 +1,7 @@
 // 2.7 Implement a function to check if a linked list is a palindrome
 // e.g. r->a->d->a->r 
+
+// Method 1 : Using iterative reversal of 
 // Time Complexity : O(n^2)
 // Space Complexity : O(n^2)
 public static bool IsListPalindrome(LinkedList<char> L)
@@ -14,7 +16,7 @@ public static bool IsListPalindrome(LinkedList<char> L)
    bool isMatch = false;
    for(Node<char> LPtr = L.Head , RPtr = ReversedList.Head ; LPtr != null && RPtr != null ; LPtr = LPtr.Next , RPtr = RPtr.Next)
    {
-     if ( LPtr.Data.Equals(RPtr.Data) ) 
+     if ( LPtr.Data == RPtr.Data ) 
      {
        isMatch = true;
      }
@@ -26,7 +28,8 @@ public static bool IsListPalindrome(LinkedList<char> L)
    return isMatch;
 }
 
-// Note this implementation creates new nodes and returns the head of the new list
+// Note this implementation creates new nodes off existing source nodes and returns the head of the new list
+// and hence the space consumption is doubled
 public static Node<char> ReverseNodes(Node<char> SrcNode)
 {
    if ( SrcNode == null )
@@ -54,3 +57,68 @@ public static Node<char> ReverseNodes(Node<char> SrcNode)
    }
    return Prev;
   }
+  
+  //Method 2 : This method uses slow and fast pointer mechanisms to reach the middle of the list . Then copies all 
+  // nodes from  middle to a stack. Then compare the nodes in the list to that in the stack
+  // Time Complexity : O(n + n/2)
+  // Space Complexity : O(n/2)
+  public static bool IsListAPalindrome(LinkedList<char> L)
+  {
+     if( L==null || L.Head==null)
+     {
+       throw new ApplicationException("Null or Empty List");
+     }
+     
+     Node<char> middleNode = FindMiddle(L);
+     Stack<Node<char>> myStack = new Stack<Node<char>>();
+     Node<char> Curr = null;
+     for (Curr = middleNode ; Curr != null ; Curr = Curr.Next)
+     {
+       // create copies of nodes in the stack to keep original list intact
+        Node<char> newNode = new Node<char>(Curr.Data,Curr.Next);
+        myStack.Add(newNode);
+     }
+     
+     bool ispalindrome = false;
+     Curr = L.Head;
+     while(myStack.Count>0)
+     {
+       Node<char> stackNode = myStack.Pop();
+       if (stackNode.Data == Curr.Data)
+       {
+         ispalindrome = true;
+       }
+       else
+       {
+         ispalindrome = false;
+       }
+       Curr = Curr.Next;
+     }
+     return ispalindrome;
+  }
+  
+  public Node<char> FindMiddle(LinkedList<char> L)
+  {
+     if( L==null || L.Head==null)
+     {
+       throw new ApplicationException("Null or Empty List");
+     }
+     
+     Node<char> slow,fast ;
+     slow = fast = L.Head;
+     
+     while(fast != null)
+     {
+        fast = fast.Next;
+        
+        if(fast!=null)
+        {
+          slow = slow.Next;
+          fast = fast.Next;
+        }
+     }
+    return slow;
+  }
+  
+  
+  
