@@ -1,0 +1,54 @@
+// Method 1 : Iterative Method
+// Time Complexity : O(n)
+// Space Complexity : O(1), space for new reversed linkedlist is not taken into account since that is the result to be produced
+public static LinkedList<int> ReverseListIteratively(LinkedList L)
+{
+    if ( L == null || L.Head == null)
+    {
+      throw new ApplicationException("bad input");
+    }
+
+  Node<int> Prev, Curr, Temp ;
+  Prev = null;
+  Curr = L.Head;
+  
+  while( Curr != null)
+  {
+     Temp = Curr.Next;
+     Curr.Next = Prev;
+     Prev = Curr;
+     Curr = Temp;
+  }
+  
+  LinkedList<int> ReversedList = new LinkedList<int>(Prev);
+  return ReversedList;
+}
+
+// Method 2 : Recursive Method
+// Time Complexity : O(1)
+// Space Complexity : O(n), due to as many function calls as the number of nodes in the list
+public static LinkedList<int> ReverseListRecursively(LinkedList<int> L)
+{
+  if( L == null) || L.Head == null)
+  {
+     throw new ApplicationException("bad input");
+  }
+  
+  Node<int> newhead = ReverseNodes(L.Head);
+  LinkedList<int> ReversedList = new LinkedList<int>(newhead);
+  return ReversedList;
+}
+
+
+public static void ReverseNodes(Node<int> Curr)
+{
+   if ( Curr == null || Curr.Next == null)
+   {
+     return Curr;
+   }
+   
+   Node newhead = ReverseNodes(Curr.Next);
+   Curr.Next.Next = Curr;
+   Curr.Next = null;
+   return newhead;
+}
