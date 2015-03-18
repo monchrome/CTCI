@@ -1,0 +1,56 @@
+// 2.7 Implement a function to check if a linked list is a palindrome
+// e.g. r->a->d->a->r 
+// Time Complexity : O(n^2)
+// Space Complexity : O(n^2)
+public static bool IsListPalindrome(LinkedList<char> L)
+{
+  if (L==null || L.Head == null)
+  {
+    throw new ApplicationException("Empty or null List");
+  }
+  
+   Node<char> newHead = ReverseNodes(L.Head);
+   LinkedList<char> ReversedList =   new LinkedList<char>(newHead);
+   bool isMatch = false;
+   for(Node<char> LPtr = L.Head , RPtr = ReversedList.Head ; LPtr != null && RPtr != null ; LPtr = LPtr.Next , RPtr = RPtr.Next)
+   {
+     if ( LPtr.Data.Equals(RPtr.Data) ) 
+     {
+       isMatch = true;
+     }
+     else
+     {
+       isMatch = false;
+     }
+   }
+   return isMatch;
+}
+
+// Note this implementation creates new nodes and returns the head of the new list
+public static Node<char> ReverseNodes(Node<char> SrcNode)
+{
+   if ( SrcNode == null )
+   {
+     return default(Node<char>);
+   }
+   
+   Node<char> Prev, Curr, Temp;
+   Prev = Temp = null;
+   Curr = new Node<char>(SrcNode.Data,SrcNode.Next;
+   
+   while(Curr!=null)
+   {
+     if( Curr.Next == null)
+     {
+       Temp = null;
+     }
+     else
+     {
+      Temp = new Node<char>(Curr.Next.Data,Curr.Next.Next);
+     }
+     Curr.Next = Prev;
+     Prev = new Node<char>(Curr.Data,Curr.Next;
+     Curr = Temp;
+   }
+   return Prev;
+  }
