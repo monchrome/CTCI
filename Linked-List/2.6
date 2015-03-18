@@ -1,0 +1,80 @@
+// 2.6 Given a circular link list, implement an algorithm which returns the node at the beginning of the loop
+// Time Complexity : O(n^2), where n is number of nodes in the list. Note that first traversal of n is used to detect presence
+// of a loop. Once  presence of a loop is detected, then traverse the list again to detect the node where the loop begins
+// Space Complexity : O(1)
+public static Node<int> GetStartofCylicList(LinkedList<int> L)
+{
+ if ( (L==null) || (L.Head == null))
+ {
+   return default(Node<int>);
+ }
+ 
+ Node<int> slow , fast ;
+ slow = fast = L.Head;
+ 
+ while( (slow!=null) && (slow.Next!=null) && (fast!=null) && (fast.Next!=null) && (fast.Next.Next!=null) )
+ {
+    // advance slow by 1 node and fast pointer by two nodes
+    slow = slow.Next;
+    fast = fast.Next.Next;
+    
+    if(slow == fast)
+    {
+      // first calculate the loop length
+      // to do so, advance the fast pointer,
+      // but freeze the slow pointer in place
+      int cycleLen = 0 ;
+      do
+      {
+        ++cyclelen;
+        fast = fast.Next;
+      }while(slow != fast);
+      
+      // now reset both slow and fast pointers to list head
+      slow = fast = L.Head;
+      
+      // Now first advance fast pointer by loop length
+      while(cycleLen > 0)
+      {
+       cyclelen--;
+       fast = fast.Next;
+      }
+      
+      // Now advance slow & fast pointer together till they meet
+      while(slow != fast)
+      {
+        slow = slow.Next;
+        fast = fast.Next;
+      }
+      return slow;
+    }
+ }
+ // if slow or fast pointers hit a null,code breaks out of above while loop,indicating list is not circular
+ return default(Node<int>); 
+}
+
+// Modified question : Detect if a given link list is circular
+// Time Complexity : O(n)
+// Space Complexity : O(1)
+public static bool IsListCircular(LinkList<int> L)
+{
+  if(L == null || L.Head==null)
+  {
+    return false;
+  }
+
+  Node<int> slow, fast ;
+  slow = fast = L.Head;
+
+  while ( (slow!=null) && (slow.Next!=null) && (fast!=null) && (fast.Next!=null) && (fast.Next.Next!=null) )
+  {
+     slow = slow.Next;
+     fast = fast.Next.Next;
+     
+     if(slow == fast)
+     {
+      return true;
+     }
+  }
+  return false;
+}
